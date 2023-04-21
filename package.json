@@ -5,7 +5,9 @@
   "author": "SJS",
   "license": "MIT",
   "dependencies": {
+    "@biconomy/smart-account": "^2.0.0",
     "@types/node": "^18.15.13",
+    "dotenv": "^16.0.3",
     "ts-node": "^10.9.1",
     "typescript": "^5.0.4"
   },
