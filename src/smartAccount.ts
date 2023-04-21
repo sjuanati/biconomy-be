@@ -1,4 +1,4 @@
-
+import { ADDR } from './utils/constants';
 import { ChainId } from '@biconomy/core-types';
 import SmartAccount from '@biconomy/smart-account';
 import { BalancesDto } from '@biconomy/node-client';
@@ -21,7 +21,6 @@ export const getSmartAccount = async (
             {
                 chainId: ChainId.GOERLI,
                 dappAPIKey: dappAPIKey,
-                // providerUrl: rpcUrl,
             },
         ]
     };
@@ -39,18 +38,14 @@ export const getBalances = async (smartAccount: any) => {
     {
         chainId: ChainId.GOERLI,
         eoaAddress: smartAccount.address,
-        // If empty string you receive balances of all tokens watched by Indexer
-        // you can only whitelist token addresses that are listed in token respostory
-        // specified above ^
         tokenAddresses: [
-            '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee', // ETH
-            '0x07865c6E87B9F70255377e024ace6630C1Eaa37F', // USDC
+            ADDR.ETH,
+            ADDR.USDC,
+            ADDR.WETH,
         ],
     };
-
     const balFromSdk = await smartAccount.getAlltokenBalances(balanceParams);
     console.info("getAlltokenBalances", balFromSdk);
-
     const usdBalFromSdk = await smartAccount.getTotalBalanceInUsd(balanceParams);
     console.info("getTotalBalanceInUsd", usdBalFromSdk);
 }

@@ -1,4 +1,5 @@
 import { ERC } from './utils/types';
+import { ADDR } from './utils/constants';
 import {
     ethers,
     BigNumber,
@@ -61,7 +62,7 @@ export const sendGaslessTx = async (
             throw new Error("Failed to build payload");
         }
         const tx = {
-            to: '0x07865c6E87B9F70255377e024ace6630C1Eaa37F', //usdcAddress,
+            to: ADDR.USDC,
             data: payload,
         }
         // Transaction subscription
