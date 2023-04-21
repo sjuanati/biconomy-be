@@ -4,33 +4,29 @@ import SmartAccount from '@biconomy/smart-account';
 import { BalancesDto } from '@biconomy/node-client';
 
 
-export const getSmartAccount = async (walletProvider: any): Promise<any> => {
-
+export const getSmartAccount = async (
+    walletProvider: any,
+    dappAPIKey: any,
+): Promise<any> => {
     // get EOA address from wallet provider
     const eoa = await walletProvider.getSigner().getAddress();
     console.log(`EOA address: ${eoa}`);
-
-    // get SmartAccount address from wallet provider
-    const wallet = new SmartAccount(walletProvider, {
+    // set options for SmartAccount object creation
+    const options = {
         activeNetworkId: ChainId.GOERLI,
-        supportedNetworksIds: [ChainId.GOERLI, ChainId.POLYGON_MAINNET, ChainId.POLYGON_MUMBAI],
+        supportedNetworksIds: [
+            ChainId.GOERLI,
+        ],
         networkConfig: [
             {
-                chainId: ChainId.POLYGON_MUMBAI,
-                // Dapp API Key you will get from new Biconomy dashboard that will be live soon
-                // Meanwhile you can use the test dapp api key mentioned above
-                dappAPIKey: "<DAPP_API_KEY>",
-                providerUrl: "<YOUR_PROVIDER_URL>"
+                chainId: ChainId.GOERLI,
+                dappAPIKey: dappAPIKey,
+                // providerUrl: rpcUrl,
             },
-            {
-                chainId: ChainId.POLYGON_MAINNET,
-                // Dapp API Key you will get from new Biconomy dashboard that will be live soon
-                // Meanwhile you can use the test dapp api key mentioned above
-                dappAPIKey: "<DAPP_API_KEY>",
-                providerUrl: "<YOUR_PROVIDER_URL>"
-            }
         ]
-    });
+    };
+    // get SmartAccount data from wallet provider
+    const wallet = new SmartAccount(walletProvider, options);
     const smartAccount = await wallet.init();
     const state = await smartAccount.getSmartAccountState();
     console.log(`SmartAccount address: ${state.address}`);
