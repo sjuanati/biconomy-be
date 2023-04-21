@@ -1,13 +1,14 @@
-import { ethers } from "ethers";
+import { ethers, BigNumber } from "ethers";
 
 const erc20Interface = new ethers.utils.Interface([
     'function transfer(address _to, uint256 _value)'
 ])
 
+/// @dev: the SCW must have ETH and the token that will be transferred (e.g.: USDC)
 export const sendGaslessTx = async (
     smartAccount: any,
     recipientAddress: string,
-    amount: number,
+    amount: BigNumber,
 ) => {
     try {
         // Encode an ERC-20 token transfer to the recipient of the specified amount

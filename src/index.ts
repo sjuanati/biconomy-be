@@ -14,6 +14,7 @@ const dappAPIKey = process.env.DAPP_API_KEY;
 
 (async () => {
     try {
+        const amount = ethers.BigNumber.from("1000000");
         const provider = new HDWalletProvider(privateKey, rpcUrl);
         const walletProvider = new ethers.providers.Web3Provider(provider);
         const smartAccount = await getSmartAccount(
@@ -24,7 +25,7 @@ const dappAPIKey = process.env.DAPP_API_KEY;
         await sendGaslessTx(
             smartAccount,
             '0xFe5642377F6c036a40b5675F0Fa519B59569Bc26',
-            1000000,
+            amount,
         )
         process.exit(0);
     } catch (err) {
