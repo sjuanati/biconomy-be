@@ -1,6 +1,7 @@
 import { ethers } from "ethers";
 import * as dotenv from 'dotenv';
 dotenv.config();
+import { ERC } from './utils/types';
 import {
     getBalances,
     getSmartAccount,
@@ -26,6 +27,8 @@ const dappAPIKey = process.env.DAPP_API_KEY;
             smartAccount,
             '0xFe5642377F6c036a40b5675F0Fa519B59569Bc26',
             amount,
+            '',
+            ERC.ERC20,
         )
         process.exit(0);
     } catch (err) {
