@@ -8,6 +8,7 @@ import {
 } from './smartAccount';
 import { NUM } from './utils/constants';
 import { sendGaslessTx } from './gaslessTransaction';
+import { sendBatchTx } from './batchTransaction';
 const HDWalletProvider = require("@truffle/hdwallet-provider");
 
 const privateKey = process.env.PRIVATE_KEY;
@@ -47,6 +48,14 @@ const dappAPIKey = process.env.DAPP_API_KEY;
                         NUM.ZERO,
                         '0',
                         ERC.ERC721,
+                    );
+                    break;
+                case 'sendBatch':
+                    // send a batch of transactions
+                    const amount2 = ethers.BigNumber.from("1000000");
+                    await sendBatchTx(
+                        smartAccount,
+                        amount2,
                     );
                     break;
                 default:
