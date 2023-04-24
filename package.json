@@ -12,6 +12,9 @@
     "typescript": "^5.0.4"
   },
   "scripts": {
-    "go": "ts-node ./src/index.ts"
+    "go": "ts-node ./src/index.ts",
+    "balance": "ts-node ./src/index.ts balance",
+    "send20": "ts-node ./src/index.ts send20",
+    "send721": "ts-node ./src/index.ts send721"
   }
 }

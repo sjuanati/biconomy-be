@@ -27,7 +27,7 @@ const buildPayload = async (
                 'function safeTransferFrom(address _from, address _to, uint256 _tokenId)'
             ]);
             return erc721Interface.encodeFunctionData(
-                'safeTransferFrom', [scwAddress, recipientAddress, tokenId]
+                'safeTransferFrom', [ADDR.TOKEN721, recipientAddress, tokenId]
             );
         case ERC.ERC1155:
             const erc1155Interface = new ethers.utils.Interface([
@@ -35,7 +35,7 @@ const buildPayload = async (
             ]);
             // Encode the transfer of the collectible to recipient
             return erc1155Interface.encodeFunctionData(
-                'safeTransferFrom', [scwAddress, recipientAddress, tokenId, amount, '0x']
+                'safeTransferFrom', ['0xTBC', recipientAddress, tokenId, amount, '0x']
             );
         default:
             throw new Error("Invalid ERC type.");
@@ -43,6 +43,7 @@ const buildPayload = async (
 }
 
 /// @dev: the SCW must have ETH and the token that will be transferred (e.g.: USDC)
+/// @dev: the contract of the token to be transferred must be added in Biconomy's Dashboard
 export const sendGaslessTx = async (
     smartAccount: any,
     recipientAddress: string,

@@ -34,8 +34,7 @@ export const getSmartAccount = async (
 }
 
 export const getBalances = async (smartAccount: any) => {
-    const balanceParams: BalancesDto =
-    {
+    const balanceParams: BalancesDto = {
         chainId: ChainId.GOERLI,
         eoaAddress: smartAccount.address,
         tokenAddresses: [
@@ -46,6 +45,6 @@ export const getBalances = async (smartAccount: any) => {
     };
     const balFromSdk = await smartAccount.getAlltokenBalances(balanceParams);
     console.info("getAlltokenBalances", balFromSdk);
-    const usdBalFromSdk = await smartAccount.getTotalBalanceInUsd(balanceParams);
-    console.info("getTotalBalanceInUsd", usdBalFromSdk);
+    // const usdBalFromSdk = await smartAccount.getTotalBalanceInUsd(balanceParams);
+    // console.info("getTotalBalanceInUsd", usdBalFromSdk);
 }
