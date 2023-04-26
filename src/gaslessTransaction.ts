@@ -27,7 +27,7 @@ const buildPayload = async (
                 'function safeTransferFrom(address _from, address _to, uint256 _tokenId)'
             ]);
             return erc721Interface.encodeFunctionData(
-                'safeTransferFrom', [ADDR.TOKEN721, recipientAddress, tokenId]
+                'safeTransferFrom', [scwAddress, recipientAddress, tokenId]
             );
         case ERC.ERC1155:
             const erc1155Interface = new ethers.utils.Interface([
@@ -48,6 +48,7 @@ export const sendGaslessTx = async (
     smartAccount: any,
     recipientAddress: string,
     amount: BigNumber,
+    assetAddress: string,
     tokenId: string,
     erc: ERC,
 ) => {
@@ -63,7 +64,7 @@ export const sendGaslessTx = async (
             throw new Error("Failed to build payload");
         }
         const tx = {
-            to: ADDR.USDC,
+            to: assetAddress,
             data: payload,
         }
         // Transaction subscription

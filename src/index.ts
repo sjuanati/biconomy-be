@@ -6,7 +6,10 @@ import {
     getBalances,
     getSmartAccount,
 } from './smartAccount';
-import { NUM } from './utils/constants';
+import {
+    NUM,
+    ADDR,
+} from './utils/constants';
 import { sendGaslessTx } from './gaslessTransaction';
 import { sendBatchTx } from './batchTransaction';
 const HDWalletProvider = require("@truffle/hdwallet-provider");
@@ -36,6 +39,7 @@ const dappAPIKey = process.env.DAPP_API_KEY;
                         smartAccount,
                         '0xFe5642377F6c036a40b5675F0Fa519B59569Bc26',
                         amount,
+                        ADDR.USDC,
                         '',
                         ERC.ERC20,
                     );
@@ -46,7 +50,8 @@ const dappAPIKey = process.env.DAPP_API_KEY;
                         smartAccount,
                         '0xFe5642377F6c036a40b5675F0Fa519B59569Bc26',
                         NUM.ZERO,
-                        '0',
+                        ADDR.TOKEN721,
+                        '1',
                         ERC.ERC721,
                     );
                     break;
