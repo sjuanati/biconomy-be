@@ -17,6 +17,8 @@ const HDWalletProvider = require("@truffle/hdwallet-provider");
 const privateKey = process.env.PRIVATE_KEY;
 const rpcUrl = process.env.RPC_URL;
 const dappAPIKey = process.env.DAPP_API_KEY;
+const EOA1 = process.env.EOA1;
+const EOA2 = process.env.EOA2;
 
 (async () => {
     try {
@@ -34,34 +36,49 @@ const dappAPIKey = process.env.DAPP_API_KEY;
                     break;
                 case 'send20':
                     // send 1 USDC via gasless txn
-                    const amount = ethers.BigNumber.from("1000000");
-                    await sendGaslessTx(
-                        smartAccount,
-                        '0xFe5642377F6c036a40b5675F0Fa519B59569Bc26',
-                        amount,
-                        ADDR.USDC,
-                        '',
-                        ERC.ERC20,
-                    );
+                    const amount = ethers.BigNumber.from('1000000');
+                    if (EOA1) {
+                        await sendGaslessTx(
+                            smartAccount,
+                            EOA1,
+                            amount,
+                            ADDR.USDC,
+                            '',
+                            ERC.ERC20,
+                        );
+                    } else {
+                        console.log('Destination address not defined in .env');
+                    }
+
                     break;
                 case 'send721':
                     // send a token via gasless txn
-                    await sendGaslessTx(
-                        smartAccount,
-                        '0xFe5642377F6c036a40b5675F0Fa519B59569Bc26',
-                        NUM.ZERO,
-                        ADDR.TOKEN721,
-                        '1',
-                        ERC.ERC721,
-                    );
+                    if (EOA1) {
+                        await sendGaslessTx(
+                            smartAccount,
+                            EOA1,
+                            NUM.ZERO,
+                            ADDR.TOKEN721,
+                            '0',
+                            ERC.ERC721,
+                        );
+                    } else {
+                        console.log('Destination address not defined in .env');
+                    }
                     break;
                 case 'sendBatch':
                     // send a batch of transactions
-                    const amount2 = ethers.BigNumber.from("1000000");
-                    await sendBatchTx(
-                        smartAccount,
-                        amount2,
-                    );
+                    const amount2 = ethers.BigNumber.from('1000000');
+                    if (EOA1 && EOA2) {
+                        await sendBatchTx(
+                            smartAccount,
+                            amount2,
+                            EOA1,
+                            EOA2,
+                        );
+                    } else {
+                        console.log('Destination addresses not defined in .env');
+                    }
                     break;
                 default:
                     console.log('show params');

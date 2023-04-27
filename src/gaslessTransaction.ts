@@ -1,5 +1,4 @@
 import { ERC } from './utils/types';
-import { ADDR } from './utils/constants';
 import {
     ethers,
     BigNumber,
